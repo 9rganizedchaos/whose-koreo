@@ -1,0 +1,20 @@
+@use "src/styles/styles" as *;
+
+.description {
+  .tags-wrapper {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    flex-wrap: nowrap;
+
+    @extend %typo-small-1;
+  }
+
+  .invisible {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,121 @@
+@use "sass:map";
+
+$header-height: 56px;
+$sidebar-width: (
+  "expanded": 311px,
+  "collapsed": 67px,
+);
+
+/**
+* z-index 변수
+**/
+$below: -1;
+$above: 1;
+
+// 페이지 콘텐츠
+
+$zcontents: 0;
+$zcontents-background: $below + $zcontents;
+$zcontents-floating: $above + $zcontents;
+$zcontents-floating-above: $above * 2 + $zcontents;
+$zcontents-cloudy: $above * 3 + $zcontents;
+$zcontents-floating-btn: $above * 4 + $zcontents;
+$zcontents-tooltip: $above * 5 + $zcontents;
+$zcontents-dropdown: $above * 6 + $zcontents;
+
+// 페이지 레이아웃
+$zlayout: 100;
+$zlayout-fixed: $above + $zlayout;
+$zlayout-popover: $above * 2 + $zlayout;
+
+// $zlayout-backdrop: $below + $zlayout;
+// $zlayout-hierarchy: $above + $zlayout; // UI 순서 정리
+// $zlayout-popover: $above * 2 + $zlayout; // 드랍다운 메뉴, select 옵션
+// $zlayout-footer: $above * 3 + $zlayout; // page footer
+// $zlayout-tooltip: $above * 3 + $zlayout; // 툴팁 메시지
+
+// 피드백 (모달, 토스트 메시지, 배너 등)
+$zpopup: 200;
+$zpopup-toast: $above + $zpopup;
+$zpopup-backdrop: $below + $zpopup; // 팝업의 백그라운드 오버레이
+
+// $zpopup-backdrop: $below + $zpopup; // 팝업의 백그라운드 오버레이
+// $zpopup-modal: $zpopup;
+// $zpopup-toast: $above + $zpopup;
+
+// 페이지 위에 표시되는 전환 (로딩, 페이지 전환 효과)
+$ztransition: 300;
+
+// $ztransition-loader: $ztransition;
+
+/**
+* mediaQuery
+**/
+$breakpoints: (
+  mobile: (
+    min: 360px,
+    max: 479.98px,
+  ),
+  tablet: (
+    min: 480px,
+    max: 1439.98px,
+  ),
+  desktop: (
+    min: 1440px,
+    max: 9999.98px,
+  ),
+);
+
+@mixin breakpoint($breakpoint, $direction: min) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    /* stylelint-disable-next-line scss/no-global-function-names */
+    $breakpoint-values: map.get($breakpoints, $breakpoint);
+    /* stylelint-disable-next-line scss/no-global-function-names */
+    $breakpoint-min: map.get($breakpoint-values, min);
+    /* stylelint-disable-next-line scss/no-global-function-names */
+    $breakpoint-max: map.get($breakpoint-values, max);
+
+    @if $direction == min {
+      @media (min-width: $breakpoint-min) {
+        @content;
+      }
+    } @else {
+      @media (max-width: $breakpoint-max) {
+        @content;
+      }
+    }
+  } @else {
+    @if $direction == min {
+      @media (min-width: $breakpoint) {
+        @content;
+      }
+    } @else {
+      @media (max-width: $breakpoint) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin ellipsis($line-cnt, $line-height) {
+  display: -webkit-box;
+  height: $line-height * $line-cnt;
+  overflow: hidden;
+  line-height: $line-height;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line-cnt;
+}
+
+@mixin animation($delay, $duration, $name) {
+  animation-name: $name;
+  animation-duration: $duration;
+  animation-delay: $delay;
+}
+
+@mixin keyframe($animation_name) {
+  @keyframes #{$animation_name} {
+    @content;
+  }
+}

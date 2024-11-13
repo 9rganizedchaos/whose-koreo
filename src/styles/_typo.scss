@@ -1,0 +1,158 @@
+@use 'sass:map';
+
+%typo {
+  &-display {
+    &-1 {
+      font-size: 80px;
+      line-height: 96px;
+      letter-spacing: 0;
+    }
+
+    &-2 {
+      font-size: 48px;
+      line-height: 58px;
+      letter-spacing: 0;
+    }
+  }
+
+  &-heading {
+    &-1 {
+      font-size: 40px;
+      line-height: 48px;
+      letter-spacing: 0;
+    }
+
+    &-2 {
+      font-size: 32px;
+      line-height: 38px;
+      letter-spacing: 0;
+    }
+
+    &-3 {
+      font-size: 28px;
+      line-height: 34px;
+      letter-spacing: 0;
+    }
+
+    &-4 {
+      font-size: 24px;
+      line-height: 29px;
+      letter-spacing: 0;
+    }
+
+    &-5 {
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0;
+    }
+
+    &-6 {
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 0;
+    }
+  }
+
+  &-body {
+    &-1 {
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0;
+    }
+
+    &-2 {
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0;
+    }
+  }
+
+  &-small {
+    &-1 {
+      font-size: 12px;
+      line-height: 16px;
+      letter-spacing: 0;
+    }
+
+    &-2 {
+      font-size: 11px;
+      line-height: 14px;
+      letter-spacing: 0;
+    }
+
+    &-3 {
+      font-size: 10px;
+      line-height: 12px;
+      letter-spacing: 0;
+    }
+  }
+}
+
+$font-weights: (
+  bold: 700,
+  medium: 500,
+  regular: 400,
+);
+$font-sizes: (
+  display: (
+    1: 80px,
+    2: 48px,
+  ),
+  heading: (
+    1: 40px,
+    2: 32px,
+    3: 28px,
+    4: 24px,
+    5: 20px,
+    6: 16px,
+  ),
+  body: (
+    1: 16px,
+    2: 14px,
+  ),
+  small: (
+    1: 12px,
+    2: 11px,
+    3: 10px,
+  ),
+);
+$line-heights: (
+  display: (
+    1: 96px,
+    2: 58px,
+  ),
+  heading: (
+    1: 48px,
+    2: 38px,
+    3: 34px,
+    4: 29px,
+    5: 24px,
+    6: 19px,
+  ),
+  body: (
+    1: 24px,
+    2: 20px,
+  ),
+  small: (
+    1: 16px,
+    2: 14px,
+    3: 12px,
+  ),
+);
+
+@mixin typo($category, $volume, $font-weight: medium) {
+  @if map-has-key($font-sizes, $category) and map-has-key($line-heights, $category) {
+    $category-font-size: map.get($font-sizes, $category);
+    $category-line-heights: map.get($line-heights, $category);
+
+    @if map-has-key($category-font-size, $volume) and
+      map-has-key($category-line-heights, $volume) and
+      map-has-key($font-weights, $font-weight)
+    {
+      font-weight: map.get($font-weights, $font-weight);
+      font-size: map.get($category-font-size, $volume);
+      line-height: map.get($category-line-heights, $volume);
+      letter-spacing: 0;
+    }
+  }
+}

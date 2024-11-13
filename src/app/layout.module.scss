@@ -1,0 +1,32 @@
+@use "src/styles/styles" as *;
+
+@font-face {
+  font-family: Buda;
+  src: url("../../public/assets/fonts/Buda.woff2");
+}
+
+.layout {
+  min-height: 100vh;
+  position: absolute;
+  width: 100%;
+
+  .header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    font-family: Buda;
+
+    @extend %typo-heading-5;
+  }
+
+  .content {
+    min-height: calc(100vh - 64px);
+    padding: 48px;
+  }
+}
