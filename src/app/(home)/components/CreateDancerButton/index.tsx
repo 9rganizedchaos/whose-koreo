@@ -5,12 +5,14 @@ import { Button } from "antd/lib";
 import { CreateDancerModal } from "../CreateDancerModal";
 import { useState } from "react";
 import { useForm } from "antd/es/form/Form";
-import { addDancer } from "@/utils/firebase";
-import { CreateDancerFormType } from "../CreateDancerModal/form";
+import { CreateDancerRequest } from "@/models/dancers/type";
+import { useCreateDancerMutation } from "@/models/dancers/query";
 
 export function CreateDancerButton() {
   const [createDancerModalOpen, setCreateDancerModalOpen] = useState(false);
   const [createDancerForm] = useForm();
+
+  const { mutate: createDancer } = useCreateDancerMutation();
 
   const clickCreateDancerButton = () => {
     setCreateDancerModalOpen(true);
@@ -20,8 +22,9 @@ export function CreateDancerButton() {
     setCreateDancerModalOpen(false);
   };
 
-  const submitCreateDancerForm = (values: CreateDancerFormType) => {
-    addDancer(values);
+  const submitCreateDancerForm = (values: CreateDancerRequest) => {
+    createDancer(values);
+    closeModal();
   };
 
   return (

@@ -8,6 +8,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import Layout, { Content, Header } from "antd/es/layout/layout";
 import classNames from "classnames";
 import AntdProvider from "@/providers/AntdProvider";
+import { ReactQueryProviders } from "../providers/ReactQueryProvider";
 
 const pretendard = localFont({
   weight: "45 920",
@@ -68,16 +69,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={classNames(styles["body"], pretendard.className)}>
-        <AntdRegistry>
-          <AntdProvider>
-            <Layout className={styles["layout"]}>
-              <Header className={styles["header"]}>
-                <div>Whose Koreo</div>
-              </Header>
-              <Content className={styles["content"]}>{children}</Content>
-            </Layout>
-          </AntdProvider>
-        </AntdRegistry>
+        <ReactQueryProviders>
+          <AntdRegistry>
+            <AntdProvider>
+              <Layout className={styles["layout"]}>
+                <Header className={styles["header"]}>
+                  <div>Whose Koreo</div>
+                </Header>
+                <Content className={styles["content"]}>{children}</Content>
+              </Layout>
+            </AntdProvider>
+          </AntdRegistry>
+        </ReactQueryProviders>
       </body>
     </html>
   );
