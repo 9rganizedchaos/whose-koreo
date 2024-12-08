@@ -5,11 +5,11 @@ import { FormInstance } from "antd/lib";
 // import Upload from "antd/es/upload/Upload";
 // import UploadButton from "../UploadButton";
 import Input from "antd/es/input/Input";
-import { CreateDancerFormType } from "./form";
+import { CreateDancerRequest } from "@/models/dancers/type";
 
 interface Props extends ModalProps {
   form: FormInstance;
-  onFinish: (values: CreateDancerFormType) => void;
+  onFinish: (values: CreateDancerRequest) => void;
 }
 
 export function CreateDancerModal({ open, form, onCancel, onFinish }: Props) {
@@ -20,7 +20,7 @@ export function CreateDancerModal({ open, form, onCancel, onFinish }: Props) {
       onCancel={onCancel}
       footer={null}
     >
-      <Form<CreateDancerFormType>
+      <Form<CreateDancerRequest>
         form={form}
         onFinish={onFinish}
         className={styles["form"]}
